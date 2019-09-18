@@ -1,0 +1,31 @@
+clear all
+options.t0=0;
+options.t1=450;
+options.dt=1;
+options.Nx=20;
+options.thresh=1e-4;
+results=solve(options);
+datafile=['PhaseChange-Nx' num2str()  datestr(now,'mm-dd-yyyy_HH-MM-SS') '.mat'];
+save(datafile)
+
+
+
+clear all
+options.t0=0;
+options.t1=600;
+options.dt=0.5;
+options.Nx=20;
+options.thresh=1e-4;
+results=solve(options);
+datafile=['PhaseChange' datestr(now,'mm-dd-yyyy_HH-MM-SS') '.mat'];
+save(datafile)
+
+clear all
+options.t0=0;
+options.t1=600;
+options.dt=0.1;
+options.Nx=20;
+options.thresh=1e-4;
+results=solve(options);
+datafile=['PhaseChange' datestr(now,'mm-dd-yyyy_HH-MM-SS') '.mat'];
+save(datafile)

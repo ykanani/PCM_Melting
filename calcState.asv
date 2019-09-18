@@ -1,0 +1,27 @@
+function [H, Htot, gamma, rho]=calcState(T,gamma,ifplot)
+Nx=length(T)-2;
+%% interpolation
+% Htot=interp1(PCM.T,PCM.Htot,T,'spline');
+% H=interp1(PCM.T,PCM.H,T,'spline');
+% gamma=H/max(PCM.H);
+%% fit
+fitresult=PCM.Hfit;
+a =fitresult.a;  
+b =fitresult.b;  
+c =fitresult.c;  
+d =fitresult.d;
+Hsen=interp1(PCM.T,PCM.Hsen,T);
+Htot=(a*erf((T-b)/c)+d)*PCM.hfg+Hsen;
+H=(a*erf((T-b)/c)+d)*PCM.hfg;
+gamma=H./max(PCM.Hlat);
+
+Nx=size(T,1);
+Ny=size(T,2);
+rho=ones(Nx,Ny)*(PCM.rhol+PCM.rhos)/2;
+
+if (ifplot==1)  
+    plot(PCM.T,PCM.Htot,'k')
+    plot(T(2:Nx+1),Htot(2:Nx+1),'or')
+    plot(PCM.T,PCM.H,'-.k')
+    plot(T(2:Nx+1),H(2:Nx+1),'ob')
+end
